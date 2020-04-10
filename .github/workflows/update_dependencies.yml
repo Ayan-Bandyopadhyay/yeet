@@ -40,7 +40,9 @@ jobs:
             python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
             architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
       - name: Run python script on changed files 
-        run: python update_dependencies.py 
+        run: |
+          $HOME/files.json
+          python update_dependencies.py 
       - name: Create report file
         run: date +%s > report.txt
       - name: Commit report
