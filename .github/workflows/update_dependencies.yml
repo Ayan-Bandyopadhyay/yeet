@@ -35,13 +35,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: trilom/file-changes-action@v1.2.3
+      - uses: lots0logs/gh-action-get-changed-files@2.0.6
+        with:
+          token: GITHUB_TOKEN
       - uses: actions/setup-python@v1
         with:
-            python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-            architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+          python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
       - name: Run python script on changed files 
         run: |
-          echo '${{ steps.file_changes.outputs.files_modified}}'
+          cat ${HOME}/files.json
           python update_dependencies.py 
       - name: Create report file
         run: date +%s > report.txt
