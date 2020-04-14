@@ -14,8 +14,5 @@ print(data)
 
 
 
-for root, dirs, files in os.walk(home, topdown=True):
-   for name in files:
-      print(os.path.join(root, name))
-   for name in dirs:
-      print(os.path.join(root, name))
+dir_path = os.path.dirname(os.path.realpath(__file__))
+print(dir_path)
