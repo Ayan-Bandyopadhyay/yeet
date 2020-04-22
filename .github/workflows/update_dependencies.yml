@@ -24,6 +24,10 @@ jobs:
         with:
           python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+      - name: Install python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install sh
       - name: Run python script on changed files 
         run: | # changed files are in ${HOME}/files.json
           python update_dependencies.py 
