@@ -22,6 +22,7 @@ def update_file(filename, dependencies):
 		file.write(contents)
 	git.add(filename)
 	msg = 'update ' + filename + ' based on dependencies'
+	print(msg)
 	git.commit(m=msg)
 	git.push()
 
@@ -35,8 +36,6 @@ with open(home + "/files.json") as file:
 
 for changed_file in changed_files:
 	for (filename, dependencies) in dependency_graph.items():
-		print(changed_file)
-		print(dependencies)
 		if changed_file in dependencies:
 			update_file(filename, dependencies)
 
