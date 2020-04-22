@@ -32,7 +32,7 @@ with open(home + "/files.json") as file:
 	changed_files = json.load(file)
 
 for changed_file in changed_files:
-	for (filename, dependencies) in dependency_graph:
+	for (filename, dependencies) in dependency_graph.items():
 		if changed_file in dependencies:
 			update_file(filename, dependencies)
 
