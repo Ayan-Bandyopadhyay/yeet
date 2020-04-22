@@ -30,13 +30,13 @@ jobs:
           pip install sh
       - name: Run python script on changed files 
         run: | # changed files are in ${HOME}/files.json
+          git config --global user.email "ayanb9440@gmail.com"
+          git config --global user.name "Ayan Bandyopadhyay"
           python update_dependencies.py 
       - name: Create report file
         run: date +%s > report.txt
       - name: Commit report
         run: |
-          git config --global user.email "ayanb9440@gmail.com"
-          git config --global user.name "Ayan Bandyopadhyay"
           git add report.txt
           git commit -m "Automated report"
           git push
