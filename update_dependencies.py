@@ -35,6 +35,8 @@ with open(home + "/files.json") as file:
 
 for changed_file in changed_files:
 	for (filename, dependencies) in dependency_graph.items():
+		print(changed_file)
+		print(dependencies)
 		if changed_file in dependencies:
 			update_file(filename, dependencies)
 
