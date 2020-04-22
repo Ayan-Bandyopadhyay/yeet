@@ -6,6 +6,8 @@ from pathlib import Path
 dir_path = os.path.dirname(os.path.realpath(__file__))
 print(dir_path)
 git = sh.git.bake(_cwd=dir_path)
+git.config('--global user.email "ayanb9440@gmail.com"')
+git.config('--global user.name "Ayan Bandyopadhyay"')
 
 dependency_graph = {
 	'report.txt': ['reports/report1.txt', 'reports/report2.txt']
