@@ -1,3 +1,14 @@
-abc
-defghi123
-456
+md5: 5845329df279ad5a23871cf459b331b3
+outs:
+- md5: d751713988987e9331980363e24189ce.dir
+  path: data5
+  cache: true
+  metric: false
+  persist: false
+md5: cdb24c91abd619351e6041598080bfac
+outs:
+- md5: 0268e41c6b7cc735f9a5da3f7875b3fc.dir
+  path: data6
+  cache: true
+  metric: false
+  persist: false
