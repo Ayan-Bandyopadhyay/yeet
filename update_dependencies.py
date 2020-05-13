@@ -41,7 +41,7 @@ class Tag:
 
 
 def get_latest_tag(filename):
-	tagrefs = sorted(repo.tags, key=lambda t: t.commit.committed_datetime, reverse: True)
+	tagrefs = sorted(repo.tags, key=lambda t: t.commit.committed_datetime, reverse= True)
 
 	for tagref in tagrefs:
 		tag = Tag(tagref.path)
