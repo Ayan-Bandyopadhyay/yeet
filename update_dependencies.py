@@ -19,7 +19,7 @@ dependency_graph = {
 }
 
 class Tag:
-	def __init__(self, path):
+	def __init__(self, path, message):
 
 		# prefix is "refs/tags/"
 		i = len("refs/tags/")
@@ -29,7 +29,9 @@ class Tag:
 			j -= 1
 		self.filename = path[i:j]
 		self.version = float(path[j+2:])
-		self.message = tagref.tag.message
+		self.message = message
+		print(self.filename)
+		print(self.version)
 
 	def get_name(self):
 		return self.filename + '_v' + str(self.version)
@@ -44,7 +46,7 @@ def get_latest_tag(filename):
 	tagrefs = sorted(repo.tags, key=lambda t: t.commit.committed_datetime, reverse= True)
 
 	for tagref in tagrefs:
-		tag = Tag(tagref.path)
+		tag = Tag(tagref.path, tagref.tag.message)
 		if filename == tag.filename:
 			return tag
 	return Tag('refs/tags' + filename + '_v0.9')
