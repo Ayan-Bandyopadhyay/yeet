@@ -22,10 +22,15 @@ class Tag:
 	def __init__(self, path, message):
 
 		# prefix is "refs/tags/"
-		i = len("refs/tags/") - 1
+		i = len("refs/tags/") 
 		j = len(path) - 2
 
 		while path[j] != '_' and path[j+1] != 'v':
+			if j == 0:
+				self.filename = ''
+				self.version = None
+				self.message = None
+				return
 			j -= 1
 		self.filename = path[i:j]
 		self.version = float(path[j+2:])
