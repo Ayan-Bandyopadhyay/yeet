@@ -49,12 +49,13 @@ class Tag:
 
 def get_latest_tag(filename):
 	tagrefs = sorted(repo.tags, key=lambda t: t.commit.committed_datetime, reverse= True)
-
+	print(tagrefs)
 	for tagref in tagrefs:
+		print(tagref.path)
 		tag = Tag(tagref.path, tagref.tag.message)
 		if filename == tag.filename:
 			return tag
-	return Tag('refs/tags' + filename + '_v0.9', '')
+	return Tag('refs/tags/' + filename + '_v0.9', '')
 
 
 
