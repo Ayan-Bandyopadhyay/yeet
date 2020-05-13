@@ -10,6 +10,7 @@ print(dir_path)
 # git = sh.git.bake(_cwd=dir_path)
 
 repo = git.Repo(dir_path)
+origin = repo.remote('origin')
 
 # git.config('--global', 'user.email', 'ayanb9440@gmail.com')
 # git.config('--global user.name "Ayan Bandyopadhyay"')
@@ -48,6 +49,7 @@ class Tag:
 
 
 def get_latest_tag(filename):
+	origin.pull()
 	tagrefs = sorted(repo.tags, key=lambda t: t.commit.committed_datetime, reverse= True)
 	print(tagrefs)
 	for tagref in tagrefs:
@@ -85,7 +87,6 @@ def update_file(filename, dependencies):
 	latest_tag.increment()
 	new_tag = repo.create_tag(latest_tag.get_name(), message = latest_tag.message)
 	print(new_tag)
-	origin = repo.remote('origin')
 	origin.push()
 	origin.push(new_tag)
 
