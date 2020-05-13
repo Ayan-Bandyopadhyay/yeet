@@ -22,7 +22,7 @@ class Tag:
 	def __init__(self, path, message):
 
 		# prefix is "refs/tags/"
-		i = len("refs/tags/")
+		i = len("refs/tags/") - 1
 		j = len(path) - 2
 
 		while path[j] != '_' and path[j+1] != 'v':
@@ -78,6 +78,7 @@ def update_file(filename, dependencies):
 
 	latest_tag.increment()
 	new_tag = repo.create_tag(latest_tag.get_name(), message = latest_tag.message)
+	print(new_tag)
 	origin = repo.remote('origin')
 	origin.push()
 	origin.push(new_tag)
