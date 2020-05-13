@@ -49,7 +49,7 @@ def get_latest_tag(filename):
 		tag = Tag(tagref.path, tagref.tag.message)
 		if filename == tag.filename:
 			return tag
-	return Tag('refs/tags' + filename + '_v0.9')
+	return Tag('refs/tags' + filename + '_v0.9', '')
 
 
 
