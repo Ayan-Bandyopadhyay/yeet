@@ -16,7 +16,13 @@ origin = repo.remote('origin')
 # git.config('--global user.name "Ayan Bandyopadhyay"')
 
 dependency_graph = {
-	'report.txt': ['update_dependencies.py']
+	'report2.txt': [
+		{
+			'report.txt': ['update_dependencies.py']
+		},
+		'report3.txt'
+	],
+	'report4.txt': ['update_dependencies.py']
 }
 
 class Tag:
@@ -68,12 +74,16 @@ def update_file(filename, dependencies):
 	print(latest_tag)
 
 	contents = ''
-	for dep in dependencies:
+	for dependency in dependencies:
 
-		latest_tag.message += get_latest_tag(dep).get_name()
+		dep_file = dependency
+		if isinstance(dep_file, dict):
+			dep_file = list(dep_file.keys())[0]
+
+		latest_tag.message += get_latest_tag(dep_file).get_name()
 		# each dependency is a .dvc file corresponding to a folder
 		# get url of dependency folder
-		with open(dep, 'r') as file:
+		with open(dep_file, 'r') as file:
 			contents += file.read()
 
 	with open(filename, 'w') as file:
@@ -94,14 +104,27 @@ def update_file(filename, dependencies):
 home = str(Path.home())
 changed_files = None
 
-# with open(home + "/files.json") as file:
-# 	changed_files = json.load(file)
+with open(home + "/files.json") as file:
+	changed_files = json.load(file)
 
-# changed_file = changed_files[0]
-changed_file = 'update_dependencies.py'
-for (filename, dependencies) in dependency_graph.items():
-	if changed_file in dependencies:
-		update_file(filename, dependencies)
+changed_file = changed_files[0]
+# changed_file = 'update_dependencies.py'
+
+def find_and_update_dependencies(graph):
+	for (filename, dependencies) in graph.items():
+		should_update = False
+		for dependency in dependencies:
+			if isinstance(dependency, dict):
+				find_and_update_dependencies(dependency)
+			elif isinstance(dependency, str) and dependency == changed_file:
+				update_file(filename, dependencies)
+
+
+find_and_update_dependencies(dependency_graph)
+		
+
+
+	
 
 # print(git.tag()[0])
 
