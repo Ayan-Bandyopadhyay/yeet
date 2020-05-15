@@ -59,7 +59,7 @@ def get_latest_tag(filename):
 	tagrefs = sorted(repo.tags, key=lambda t: t.commit.committed_datetime, reverse= True)
 	print(tagrefs)
 	for tagref in tagrefs:
-		print(tagref.path)
+		print(tagref.tag.message)
 		tag = Tag(tagref.path, tagref.tag.message)
 		if filename == tag.filename:
 			return tag
