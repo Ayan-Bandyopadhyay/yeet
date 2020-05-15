@@ -7,7 +7,7 @@ import git
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 print(dir_path)
-# git = sh.git.bake(_cwd=dir_path
+# git = sh.git.bake(_cwd=dir_path)
 
 repo = git.Repo(dir_path)
 origin = repo.remote('origin')
@@ -40,7 +40,7 @@ class Tag:
 		print(self.version)
 
 	def get_name(self):
-		return self.filename + '_v' + str(self.version)
+		return self.filename + '_v' + ("%0.1f" % self.version)
 
 	def increment(self):
 		self.version += 0.1
