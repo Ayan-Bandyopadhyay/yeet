@@ -112,7 +112,7 @@ def find_and_update_dependencies(graph, changed_file):
 		should_update = False
 		for dependency in dependencies:
 			if isinstance(dependency, dict):
-				find_and_update_dependencies(dependency)
+				find_and_update_dependencies(dependency, changed_file)
 			elif isinstance(dependency, str) and dependency == changed_file:
 				update_file(filename, dependencies)
 
