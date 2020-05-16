@@ -42,8 +42,7 @@ class Tag:
 		self.filename = path[i:j]
 		self.version = float(path[j+2:])
 		self.message = message
-		print(self.filename)
-		print(self.version)
+
 
 	def get_name(self):
 		return self.filename + '_v' + ("%0.1f" % self.version)
@@ -57,9 +56,7 @@ class Tag:
 def get_latest_tag(filename):
 	origin.pull()
 	tagrefs = sorted(repo.tags, key=lambda t: t.commit.committed_datetime, reverse= True)
-	print(tagrefs)
 	for tagref in tagrefs:
-		print(tagref.tag.message)
 		tag = Tag(tagref.path, tagref.tag.message)
 		if filename == tag.filename:
 			return tag
@@ -68,6 +65,7 @@ def get_latest_tag(filename):
 
 
 def update_file(filename, dependencies):
+	print(filename)
 
 	latest_tag = get_latest_tag(filename)
 	latest_tag.message = ''
@@ -91,12 +89,10 @@ def update_file(filename, dependencies):
 	repo.index.add([filename])
 
 	msg = 'update ' + filename + ' based on dependencies'
-	print(msg)
 	repo.index.commit(msg)
 
 	latest_tag.increment()
 	new_tag = repo.create_tag(latest_tag.get_name(), message = latest_tag.message)
-	print(new_tag)
 	origin.push()
 	origin.push(new_tag)
 	find_and_update_dependencies(dependency_graph, filename)
@@ -111,8 +107,12 @@ def find_and_update_dependencies(graph, changed_file):
 	for (filename, dependencies) in graph.items():
 		should_update = False
 		for dependency in dependencies:
-			if isinstance(dependency, dict):
+
+
+			if isinstance(dependency, dict) and list(dependency.keys())[0] != changed_file:
 				find_and_update_dependencies(dependency, changed_file)
+			elif isinstance(dependency, dict) and list(dependency.keys())[0] == changed_file:
+				update_file(filename, dependencies)
 			elif isinstance(dependency, str) and dependency == changed_file:
 				update_file(filename, dependencies)
 
