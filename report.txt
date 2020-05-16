@@ -110,6 +110,7 @@ with open(home + "/files.json") as file:
 changed_file = changed_files[0]
 # changed_file = 'update_dependencies.py'
 
+
 def find_and_update_dependencies(graph):
 	for (filename, dependencies) in graph.items():
 		should_update = False
