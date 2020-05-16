@@ -99,19 +99,15 @@ def update_file(filename, dependencies):
 	print(new_tag)
 	origin.push()
 	origin.push(new_tag)
+	find_and_update_dependencies(dependency_graph, filename)
 
 
-home = str(Path.home())
-changed_files = None
 
-with open(home + "/files.json") as file:
-	changed_files = json.load(file)
 
-changed_file = changed_files[0]
 # changed_file = 'update_dependencies.py'
 
 
-def find_and_update_dependencies(graph):
+def find_and_update_dependencies(graph, changed_file):
 	for (filename, dependencies) in graph.items():
 		should_update = False
 		for dependency in dependencies:
@@ -121,7 +117,12 @@ def find_and_update_dependencies(graph):
 				update_file(filename, dependencies)
 
 
-find_and_update_dependencies(dependency_graph)
+home = str(Path.home())
+changed_files = None
+
+with open(home + "/files.json") as file:
+	changed_files = json.load(file)
+find_and_update_dependencies(dependency_graph, changed_files[0])
 		
 
 
