@@ -20,7 +20,7 @@ dependency_graph = {
 		{
 			'report.txt': ['update_dependencies.py']
 		},
-		'report3.txt'
+		'report5.txt'
 	],
 	'report4.txt': ['update_dependencies.py']
 }
@@ -116,13 +116,22 @@ def find_and_update_dependencies(graph, changed_file):
 			elif isinstance(dependency, str) and dependency == changed_file:
 				update_file(filename, dependencies)
 
+def update_tag(filename):
+	latest_tag = get_latest_tag(filename)
+	latest_tag.increment()
+	new_tag = repo.create_tag(latest_tag.get_name(), message = latest_tag.message)
+	origin.push(new_tag)
+
 
 home = str(Path.home())
-changed_files = None
+changed_file = None
 
 with open(home + "/files.json") as file:
-	changed_files = json.load(file)
-find_and_update_dependencies(dependency_graph, changed_files[0])
+	changed_file = json.load(file)[0]
+
+
+update_tag(changed_file)
+find_and_update_dependencies(dependency_graph, changed_file)
 		
 
 
