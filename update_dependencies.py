@@ -20,7 +20,7 @@ dependency_graph = {
 		{
 			'report.txt': ['update_dependencies.py']
 		},
-		'report5.txt'
+		'report.txt'
 	],
 	'report4.txt': ['update_dependencies.py']
 }
@@ -57,6 +57,7 @@ def get_latest_tag(filename):
 	origin.pull()
 	tagrefs = sorted(repo.tags, key=lambda t: t.commit.committed_datetime, reverse= True)
 	for tagref in tagrefs:
+		print(tagref.path)
 		tag = Tag(tagref.path, tagref.tag.message)
 		if filename == tag.filename:
 			return tag
@@ -69,7 +70,6 @@ def update_file(filename, dependencies):
 
 	latest_tag = get_latest_tag(filename)
 	latest_tag.message = ''
-	print(latest_tag)
 
 	contents = ''
 	for dependency in dependencies:
