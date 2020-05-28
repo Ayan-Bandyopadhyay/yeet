@@ -24,16 +24,12 @@ jobs:
         with:
           python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
-      - uses: iterative/dvc-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          DVC_REMOTE_SSH_KEY: ${{ secrets.DVC_REMOTE_SSH_KEY }}
       - name: Install python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install sh
           pip install gitpython
+          pip install "dvc[all]"
       - name: Run python script on changed files 
         run: | # changed files are in ${HOME}/files.json
           git config --global user.email "ayanb9440@gmail.com"
