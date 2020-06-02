@@ -40,5 +40,5 @@ jobs:
           git config --global user.email "ayanb9440@gmail.com"
           git config --global user.name "Ayan Bandyopadhyay"
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          python gitpython_test.py 
+          python update_dependencies.py
 
