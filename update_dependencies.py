@@ -140,7 +140,10 @@ with open(home + "/files.json") as file:
 	changed_file = json.load(file)[0]
 
 if changed_file[0] != '.':
+	print("updating tags")
 	update_tag(changed_file)
+
+print("updating dependencies")
 find_and_update_dependencies(dependency_graph, changed_file)
 		
 
