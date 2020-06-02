@@ -72,7 +72,7 @@ def update_file(filename, dependencies):
 
 	contents = ''
 
-	dir_name = [:len(filename) - len('.dvc')]
+	dir_name = filename[:len(filename) - len('.dvc')]
 	os.makedirs(dir_name)
 
 	for dependency in dependencies:
