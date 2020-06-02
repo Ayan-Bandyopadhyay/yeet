@@ -41,10 +41,10 @@ jobs:
           git config --global user.name "Ayan Bandyopadhyay"
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           sudo wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list
-          sudo apt update
-          sudo apt install dvc
+          sudo apt-get update
+          sudo apt-get install dvc
           dvc remote modify myremote ask_password false
-          dvc remote modify myremote keyfile /home/runner/.ssh/id_rsa
+          dvc remote modify myremote keyfile "/home/runner/.ssh/id_rsa"
           git add .dvc/config
           git commit -m "temporarily update config"
           git push
