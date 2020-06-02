@@ -139,8 +139,8 @@ changed_file = None
 with open(home + "/files.json") as file:
 	changed_file = json.load(file)[0]
 
-
-update_tag(changed_file)
+if changed_file[0] != '.':
+	update_tag(changed_file)
 find_and_update_dependencies(dependency_graph, changed_file)
 		
 
