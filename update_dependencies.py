@@ -3,7 +3,8 @@ import os
 import sh
 from pathlib import Path
 import git
-
+from dvc.repo import Repo
+from distutils.dir_util import copy_tree
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 print(dir_path)
@@ -11,18 +12,13 @@ print(dir_path)
 
 repo = git.Repo(dir_path)
 origin = repo.remote('origin')
+dvc_repo = Repo()
 
 # git.config('--global', 'user.email', 'ayanb9440@gmail.com')
 # git.config('--global user.name "Ayan Bandyopadhyay"')
 
 dependency_graph = {
-	'report2.txt': [
-		{
-			'report.txt': ['update_dependencies.py']
-		},
-		'report.txt'
-	],
-	'report4.txt': ['update_dependencies.py']
+	'data6.dvc': ['data5.dvc']
 }
 
 class Tag:
@@ -75,6 +71,10 @@ def update_file(filename, dependencies):
 	latest_tag.message = ''
 
 	contents = ''
+
+	dir_name = [:len(filename) - len('.dvc')]
+	os.makedirs(dir_name)
+
 	for dependency in dependencies:
 
 		dep_file = dependency
@@ -84,11 +84,18 @@ def update_file(filename, dependencies):
 		latest_tag.message += get_latest_tag(dep_file).get_name()
 		# each dependency is a .dvc file corresponding to a folder
 		# get url of dependency folder
-		with open(dep_file, 'r') as file:
-			contents += file.read()
 
-	with open(filename, 'w') as file:
-		file.write(contents)
+		name = dependency[:len(dependency) - len('.dvc')]
+
+		Repo.get('https://github.com/Ayan-Bandyopadhyay/yeet', name)
+
+		copy_tree(name, dir_name)
+
+
+	dvc_repo.add(dir_name)
+	dvc_repo.pull()
+	dvc_repo.push()
+
 	repo.index.add([filename])
 
 	msg = 'update ' + filename + ' based on dependencies'
