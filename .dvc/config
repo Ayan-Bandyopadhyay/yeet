@@ -3,5 +3,5 @@
 ['remote "myremote"']
     url = ssh://yn@131.215.8.168/home/yn/
     port = 5078
-    ask_password = false
-    keyfile = /home/runner/.ssh/id_rsa
+    ask_password = true
+    keyfile = None
