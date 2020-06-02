@@ -40,7 +40,7 @@ jobs:
           git config --global user.email "ayanb9440@gmail.com"
           git config --global user.name "Ayan Bandyopadhyay"
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          snap install --classic dvc
+          sudo snap install --classic dvc
           dvc remote modify myremote ask_password false
           dvc remote modify myremote keyfile "/home/runner/.ssh/id_rsa"
           git add .dvc/config
