@@ -54,7 +54,7 @@ jobs:
       - name: reset config
         run: |
           dvc remote modify myremote ask_password true
-          dvc remote modify myremote myremote keyfile "~/.ssh/id_rsa"
+          dvc remote modify myremote keyfile "~/.ssh/id_rsa"
           git add .dvc/config
           git commit -m "reset config"
           git push
