@@ -34,13 +34,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install sh
           pip install gitpython
-          pip install "dvc[all]"
+          pip install git+https://github.com/efiop/dvc@fix-remote-modify
       - name: update config
         run: | # changed files are in ${HOME}/files.json
           git config --global user.email "ayanb9440@gmail.com"
           git config --global user.name "Ayan Bandyopadhyay"
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          sudo snap install --classic dvc
           dvc remote modify myremote ask_password false
           dvc remote modify myremote keyfile "/home/runner/.ssh/id_rsa"
           git add .dvc/config
@@ -52,7 +51,7 @@ jobs:
       - name: reset config
         run: |
           dvc remote modify myremote ask_password true
-          dvc remote modify myremote keyfile "None"
+          dvc remote modify --unset myremote keyfile
           git add .dvc/config
           git commit -m "reset config"
           git push
