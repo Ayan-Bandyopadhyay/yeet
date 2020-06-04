@@ -34,7 +34,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install sh
           pip install gitpython
-          pip install git+https://github.com/iterative/dvc
+          pip install --pre dvc
       - name: update config
         run: | # changed files are in ${HOME}/files.json
           git config --global user.email "ayanb9440@gmail.com"
