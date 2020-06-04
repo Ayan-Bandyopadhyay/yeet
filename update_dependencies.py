@@ -8,7 +8,7 @@ from distutils.dir_util import copy_tree
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 print(dir_path)
-# git = sh.git.bake(_cwd=dir_path)
+# git = sh.git.bake(_cwd=dir_path) 
 
 repo = git.Repo(dir_path)
 origin = repo.remote('origin')
