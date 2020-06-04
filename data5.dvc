@@ -1,7 +1,3 @@
-md5: db6156216afcabae463b47e8e51504ac
 outs:
-- md5: fb434fabc010c643781d0b71067f54e0.dir
+- md5: 7a5961f825e48a954514be691a91991e.dir
   path: data5
-  cache: true
-  metric: false
-  persist: false
