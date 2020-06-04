@@ -34,6 +34,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install sh
           pip install gitpython
+          pip install paramiko
           pip install --pre dvc
       - name: update config
         run: | # changed files are in ${HOME}/files.json
